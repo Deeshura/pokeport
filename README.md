@@ -109,3 +109,12 @@ pokeport serperior --unicode
 All Pokémon designs, names, branding etc. are trademarks of The Pokémon Company.
 
 Pokémon portraits are taken from [SpriteCollab](https://sprites.pmdcollab.org). Credits for specific portraits are printed when the program is run.
+
+## Similar Projects
+
+`pokeport` is by no means the first program to print out Pokémon to your terminal. You should check out these other projects;
+
+- [pokeget](https://github.com/talwat/pokeget)
+- [pokeshell](https://github.com/acxz/pokeshell)
+- [krabby](https://github.com/yannjor/krabby)
+- [pokemon-colorscripts](https://gitlab.com/phoneybadger/pokemon-colorscripts)
