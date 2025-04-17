@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/local/opt/pokeport/.venv/bin/python3
 
 import argparse
 import climage
@@ -6,6 +6,7 @@ import io
 import requests
 import os
 import sys
+import re
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 from PIL import Image
@@ -126,25 +127,41 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    # regex clean special characters and convert to title case
+
+    args.name = re.sub('[^0-9a-zA-Z]+', '_', args.name.title())
     args.emotion = args.emotion.title()
+
+    if args.form is not None:
+        args.form = re.sub('[^0-9a-zA-Z]+', '_', args.form.title())
 
     result = pokeport_query(args.name, args.emotion)
 
     ## simpify dict structure
     simplified = []
 
+    if args.form is None:
+        args.form = result.get('searchMonster', {})[0].get('forms')[0].get('fullName')
+
     for monster in result.get('searchMonster', []):
+        # name check
         name = monster.get('name')
+
+        if name != args.name:
+            continue
+
         for form in monster.get('forms', []):
             # Check and remove the substring " Shiny" from fullName
             full_name = form.get('fullName')
             if " Shiny" in full_name:
                 full_name = full_name.replace(" Shiny", "")
 
-            # Apply filters
+            # filter terms
             credit_exists = form.get('portraits', {}).get('creditPrimary', {})
             is_shiny = form.get('isShiny')
             is_female = form.get('isFemale')
+
+            # apply filters
             if credit_exists is None:
                 continue
             if args.shiny is not None and is_shiny != args.shiny:
@@ -190,7 +207,7 @@ def main() -> None:
         width = 80
 
     #climage
-    output = climage.convert_pil(img, is_unicode = args.unicode, is_256color = not(args.truecolor), is_truecolor = args.truecolor, width = width)
+    output = climage.convert_pil(img.convert("RGBA"), is_unicode = args.unicode, is_256color = not(args.truecolor), is_truecolor = args.truecolor, width = width)
 
     print(output)
     print(f"Authors: {', '.join(simplified['credits'])}")
