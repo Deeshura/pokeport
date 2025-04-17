@@ -17,7 +17,7 @@ mkdir -p /usr/local/opt/pokeport/.venv && python -m venv /usr/local/opt/pokeport
 VIRTUAL_ENV=/usr/local/opt/pokeport/.venv
 PATH=“$VIRTUAL_ENV/bin:$PATH” # add virtual environment to path; I hope this is ok!
 
-source $VIRTUAL_ENV/bin/activate # activate virtual environment
+. $VIRTUAL_ENV/bin/activate # activate virtual environment
 
 # moving all the files to appropriate locations
 cp pokeport.py $INSTALL_DIR/pokeport
