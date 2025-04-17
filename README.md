@@ -36,7 +36,8 @@ Which should print out the help page for the program.
 To uninstall the program, run the uninstall script.
 
 ```bash
-sudo ./pokeport/uninstall.sh
+cd pokeport
+sudo ./uninstall.sh
 ```
 
 ## Usage
