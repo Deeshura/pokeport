@@ -40,6 +40,17 @@ cd pokeport
 sudo ./uninstall.sh
 ```
 
+## Updating
+
+If bugs come up and you need to update the program, start by fetching changes to the repository, then reinstall.
+
+```bash
+git fetch pokeport
+cd pokeport
+sudo ./uninstall.sh
+sudo ./install.sh
+```
+
 ## Usage
 
 You can run the program from the command line to display the portrait of a Pokémon of your choice.
